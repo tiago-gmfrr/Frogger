@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfScores xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Scores>
+    <nom>CHR</nom>
+    <temps>0.25</temps>
+  </Scores>
+  <Scores>
+    <nom>DAD</nom>
+    <temps>0.22</temps>
+  </Scores>
+  <Scores>
+    <nom>SAA</nom>
+    <temps>0.31</temps>
+  </Scores>
+  <Scores>
+    <nom>LDC</nom>
+    <temps>0.37</temps>
+  </Scores>
+  <Scores>
+    <nom>DAB</nom>
+    <temps>0.43</temps>
+  </Scores>
+</ArrayOfScores>
