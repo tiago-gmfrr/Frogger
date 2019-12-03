@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Mandals/Desktop/AtelierProg/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/mainTheme.wav</SourceFile>
+  <SourceFile>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/mainTheme.wav</SourceFile>
   <SourceTime>2019-10-15T10:00:32+02:00</SourceTime>
-  <DestFile>C:/Users/Mandals/Desktop/AtelierProg/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/bin/Windows/Content/musicSound/mainTheme.xnb</DestFile>
-  <DestTime>2019-10-30T13:06:00.0136704+01:00</DestTime>
+  <DestFile>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/bin/Windows/Content/musicSound/mainTheme.xnb</DestFile>
+  <DestTime>2019-12-03T07:56:03.1903286+01:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

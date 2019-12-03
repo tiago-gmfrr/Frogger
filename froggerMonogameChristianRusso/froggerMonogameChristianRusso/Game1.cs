@@ -351,7 +351,7 @@ namespace froggerMonogameChristianRusso
             compteur.Timer = 0;
             compteur.Minute = 0;
             decompte.Finish = false;
-            decompte.Timer = 4f;
+            decompte.Timer = 3f;
             decompte.visible = true;
             ListVie.Clear();
             gameOverMusicInstance.Stop();
@@ -416,9 +416,9 @@ namespace froggerMonogameChristianRusso
 
                     string[] tempsVirgule = temps.Split('.');
                     string tempsConvertToVirgule = tempsVirgule[0] + "," + tempsVirgule[1];
-                    
+
                     double doubleScore = Convert.ToDouble(tempsConvertToVirgule);
-                    
+
                     dictionaryScore.Add(nom, doubleScore);
                 }
                 getScore++;
@@ -426,10 +426,10 @@ namespace froggerMonogameChristianRusso
             //Pour chaque élément dans le dictionnaire le trie par ordre croissant de value
             foreach (KeyValuePair<string, double> l in dictionaryScore.OrderBy(key => key.Value))
             {
-                
+
                 //Sépare le temps en minute et le temps en secondes
                 string[] score = l.Value.ToString().Split(',');
-                
+
                 //Si le temps en seconde fait un caractére ajoute un zéro
                 if (score[1].Length == 1)
                 {
@@ -762,7 +762,7 @@ namespace froggerMonogameChristianRusso
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
+            Console.WriteLine(ListBabyFrog.Count());
             tempsJoue += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             respawnEnnemi(gameTime);
@@ -789,11 +789,12 @@ namespace froggerMonogameChristianRusso
                 player.Update(gameTime);
             }
             //Si le player est mort lance un délai
-            if (player.EstMort == true)
+            if (player.EstMort == true && player.Vie != 5)
             {
                 decompte.Finish = false;
                 decompte.Timer = 1.5f;
-                player.EstMort = false;
+                player.EstMort = false;             
+
             }
             base.Update(gameTime);
         }
