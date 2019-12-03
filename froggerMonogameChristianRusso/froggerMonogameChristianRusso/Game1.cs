@@ -120,6 +120,8 @@ namespace froggerMonogameChristianRusso
         int safeVieWidth = 10;
         float safeRocherWidth = 0.850f;
 
+        bool firstSpawn = true;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -131,7 +133,6 @@ namespace froggerMonogameChristianRusso
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
         }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -165,7 +166,6 @@ namespace froggerMonogameChristianRusso
 
             base.Initialize();
         }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -343,6 +343,7 @@ namespace froggerMonogameChristianRusso
         //Méthode permettant de tout remettre à zéro pour recommencer une partie
         public void restartGame()
         {
+            firstSpawn = true;
             indexAlphabet = 0;
             indexNom = 0;
             stringNom = "AAA";
@@ -372,6 +373,7 @@ namespace froggerMonogameChristianRusso
             player.Vie -= 1;
             ListVie.RemoveAt(player.Vie);
             player.EstMort = true;
+            firstSpawn = false;
 
         }
         //Permet d'enregistrer le score dans le fichier xml
@@ -571,6 +573,7 @@ namespace froggerMonogameChristianRusso
                 {
                     player.Respawn();
                     e.visible = false;
+                    firstSpawn = false;
                 }
             });
             //Gestion des collisions avec les grosses voitures (dernière ligne de voiture)
@@ -762,7 +765,8 @@ namespace froggerMonogameChristianRusso
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            Console.WriteLine(ListBabyFrog.Count());
+            
+            
             tempsJoue += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             respawnEnnemi(gameTime);
@@ -789,11 +793,12 @@ namespace froggerMonogameChristianRusso
                 player.Update(gameTime);
             }
             //Si le player est mort lance un délai
-            if (player.EstMort == true && player.Vie != 5)
+            if (player.EstMort == true && firstSpawn == false)
             {
                 decompte.Finish = false;
                 decompte.Timer = 1.5f;
-                player.EstMort = false;             
+                player.EstMort = false;
+                firstSpawn = true;
 
             }
             base.Update(gameTime);
