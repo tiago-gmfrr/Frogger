@@ -11,6 +11,7 @@
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/highScoreScreen.png</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/intro.png</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/mainMenu.jpg</File>
+    <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/newHighScore.png</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/onePlayer.png</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/twoPlayer.png</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/babyfrogRecup.wav</File>
@@ -51,6 +52,7 @@
   <DestFiles>
     <File>Compteur.spritefont</File>
     <File>decompte.spritefont</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

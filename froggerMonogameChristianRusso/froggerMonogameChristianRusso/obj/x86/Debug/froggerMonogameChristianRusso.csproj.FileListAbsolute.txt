@@ -200,3 +200,4 @@ C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\frogge
 C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\bin\Windows\x86\Debug\Content\musicSound\frogEcraser.xnb
 C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\bin\Windows\x86\Debug\Content\musicSound\frogNoyer.xnb
 C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\bin\Windows\x86\Debug\Content\musicSound\babyfrogRecup.xnb
+C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\bin\Windows\x86\Debug\Content\menu\newHighScore.xnb

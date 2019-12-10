@@ -9,12 +9,20 @@
     <Value>0,18</Value>
   </Score>
   <Score>
+    <PlayerName>CBB</PlayerName>
+    <Value>0,18</Value>
+  </Score>
+  <Score>
     <PlayerName>AAA</PlayerName>
     <Value>0,20</Value>
   </Score>
   <Score>
     <PlayerName>DAB</PlayerName>
     <Value>0,22</Value>
+  </Score>
+  <Score>
+    <PlayerName>JBB</PlayerName>
+    <Value>0,23</Value>
   </Score>
   <Score>
     <PlayerName>SAM</PlayerName>

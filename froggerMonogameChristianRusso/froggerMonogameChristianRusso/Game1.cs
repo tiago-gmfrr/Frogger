@@ -92,6 +92,7 @@ namespace froggerMonogameChristianRusso
         Texture2D multiPlayer;
         Texture2D highScore;
         Texture2D blackScreen;
+        Texture2D newHighScore;
         string menu = "mainMenu";
         ScoreManager scoreManager;
        
@@ -198,6 +199,7 @@ namespace froggerMonogameChristianRusso
             //Texture pour les HighScore
             highScore = Content.Load<Texture2D>("menu/background");
             blackScreen = Content.Load<Texture2D>("menu/highScoreScreen");
+            newHighScore = Content.Load<Texture2D>("menu/newHighScore");
             //Charge la musique et la joue en boucle
             gameMusic = Content.Load<SoundEffect>("musicSound/mainTheme");
             victoryMusic = Content.Load<SoundEffect>("musicSound/stageWin");
@@ -744,7 +746,7 @@ namespace froggerMonogameChristianRusso
             if (menu == "newHighScore")
             {
                 //Dessine le background et le rectangle du nom
-                spriteBatch.Draw(highScore, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
+                spriteBatch.Draw(newHighScore, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                 spriteBatch.Draw(blackScreen, new Rectangle(GraphicsDevice.Viewport.Width / 2 - 500, GraphicsDevice.Viewport.Height / 2 - 300, 1000, 600), Color.White);
                 //Timer pour pouvoir selectionner correctement
                 chooseTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
