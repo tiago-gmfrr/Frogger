@@ -20,4 +20,20 @@
     <nom>DAB</nom>
     <temps>0.43</temps>
   </Scores>
+  <Scores>
+    <nom>MBB</nom>
+    <temps>0.25</temps>
+  </Scores>
+  <Scores>
+    <nom>BBB</nom>
+    <temps>0.27</temps>
+  </Scores>
+  <Scores>
+    <nom>DBB</nom>
+    <temps>0.25</temps>
+  </Scores>
+  <Scores>
+    <nom>XAA</nom>
+    <temps>0.31</temps>
+  </Scores>
 </ArrayOfScores>

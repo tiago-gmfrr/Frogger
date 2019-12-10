@@ -173,11 +173,11 @@ namespace froggerMonogameChristianRusso
         protected override void LoadContent()
         {
             //Si le fichier de scores existe
-            if (File.Exists("scores"))
+            if (File.Exists("scores.xml"))
             {
                 //Crée un nouveau serialiser et un streamReader
                 serializer = new XmlSerializer(typeof(Scores[]));
-                lecture = new StreamReader("scores");
+                lecture = new StreamReader("scores.xml");
 
                 //Affecte la variable tableauScore avec ce que lis le streamReader
                 tableauScore = (Scores[])serializer.Deserialize(lecture);
@@ -383,7 +383,7 @@ namespace froggerMonogameChristianRusso
             tableauScore = scores.Values.ToArray();
             //Crée un nouveau serializer et StreamWriter
             serializer = new XmlSerializer(typeof(Scores[]));
-            ecriture = new StreamWriter("scores");
+            ecriture = new StreamWriter("scores.xml");
             //serialize le score dans le fichier 
             serializer.Serialize(ecriture, tableauScore);
             //ferme le streamWriter
@@ -395,7 +395,7 @@ namespace froggerMonogameChristianRusso
         {
             //Crée un nouveau document XML et le load avec le fichier scores
             XmlDocument scores = new XmlDocument();
-            scores.Load("scores");
+            scores.Load("scores.xml");
             //Ajout pour l'affichage
             tableauHighScores += "Tableau des scores : " + Environment.NewLine;
             //Initialisation des variable de gestion de score
@@ -447,7 +447,7 @@ namespace froggerMonogameChristianRusso
         {
             bool playerExist = false;
             XmlDocument scores = new XmlDocument();
-            scores.Load("scores");
+            scores.Load("scores.xml");
 
             foreach (XmlNode node in scores.DocumentElement.ChildNodes)
             {
@@ -465,7 +465,7 @@ namespace froggerMonogameChristianRusso
         {
             float tempsJoueur = 0f;
             XmlDocument scores = new XmlDocument();
-            scores.Load("scores");
+            scores.Load("scores.xml");
 
             foreach (XmlNode node in scores.DocumentElement.ChildNodes)
             {
@@ -479,7 +479,7 @@ namespace froggerMonogameChristianRusso
         public void replaceScore(double score, string playerName)
         {
             XmlDocument scores = new XmlDocument();
-            scores.Load("scores");
+            scores.Load("scores.xml");
             foreach (XmlNode node in scores.DocumentElement.ChildNodes)
             {
                 string nom = node["nom"].InnerText;
@@ -492,7 +492,7 @@ namespace froggerMonogameChristianRusso
 
 
             }
-            scores.Save("scores");
+            scores.Save("scores.xml");
         }
 
         //Gestion de toutes les collisions
