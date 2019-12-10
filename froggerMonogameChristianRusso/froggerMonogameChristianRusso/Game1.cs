@@ -220,7 +220,7 @@ namespace froggerMonogameChristianRusso
             menuThemeInstance.Play();
             //Load le content pour les decomptes
             decompte.LoadContent("decompte", new Vector2((GraphicsDevice.DisplayMode.Width / 2) - 100, (GraphicsDevice.DisplayMode.Height / 2) - 150));
-            compteur.LoadContent("compteur", new Vector2(10, 950));
+            compteur.LoadContent("compteur", new Vector2(10, 955));
             
             //Fait spawn la première entité de chaque objet
             spawnVoiture();
