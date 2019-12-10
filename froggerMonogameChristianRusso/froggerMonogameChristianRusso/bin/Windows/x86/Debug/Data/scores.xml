@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfScore xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Score>
+    <PlayerName>CHR</PlayerName>
+    <Value>0,15</Value>
+  </Score>
+  <Score>
+    <PlayerName>BOB</PlayerName>
+    <Value>0,18</Value>
+  </Score>
+  <Score>
+    <PlayerName>AAA</PlayerName>
+    <Value>0,20</Value>
+  </Score>
+  <Score>
+    <PlayerName>DAB</PlayerName>
+    <Value>0,22</Value>
+  </Score>
+  <Score>
+    <PlayerName>SAM</PlayerName>
+    <Value>0,24</Value>
+  </Score>
+</ArrayOfScore>

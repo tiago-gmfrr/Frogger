@@ -111,6 +111,24 @@
 /processorParam:TextureFormat=Color
 /build:menu/twoPlayer.png
 
+#begin musicSound/babyfrogRecup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:musicSound/babyfrogRecup.wav
+
+#begin musicSound/frogEcraser.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:musicSound/frogEcraser.wav
+
+#begin musicSound/frogNoyer.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:musicSound/frogNoyer.wav
+
 #begin musicSound/gameOver.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

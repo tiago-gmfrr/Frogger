@@ -197,3 +197,6 @@ C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\frogge
 C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\obj\x86\Debug\froggerMonogameChristianRusso.csproj.CopyComplete
 C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\obj\x86\Debug\froggerMonogameChristianRusso.exe
 C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\obj\x86\Debug\froggerMonogameChristianRusso.pdb
+C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\bin\Windows\x86\Debug\Content\musicSound\frogEcraser.xnb
+C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\bin\Windows\x86\Debug\Content\musicSound\frogNoyer.xnb
+C:\Users\Mandals\Desktop\gitProject\Frogger\froggerMonogameChristianRusso\froggerMonogameChristianRusso\bin\Windows\x86\Debug\Content\musicSound\babyfrogRecup.xnb

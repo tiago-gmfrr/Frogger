@@ -13,6 +13,9 @@
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/mainMenu.jpg</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/onePlayer.png</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/twoPlayer.png</File>
+    <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/babyfrogRecup.wav</File>
+    <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/frogEcraser.wav</File>
+    <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/frogNoyer.wav</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/gameOver.wav</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/mainTheme.wav</File>
     <File>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/musicSound/menuTheme.wav</File>
@@ -48,6 +51,9 @@
   <DestFiles>
     <File>Compteur.spritefont</File>
     <File>decompte.spritefont</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/menu/background.png</SourceFile>
-  <SourceTime>2019-10-23T15:48:14+02:00</SourceTime>
+  <SourceTime>2019-12-10T13:36:42.6205667+01:00</SourceTime>
   <DestFile>C:/Users/Mandals/Desktop/gitProject/Frogger/froggerMonogameChristianRusso/froggerMonogameChristianRusso/Content/bin/Windows/Content/menu/background.xnb</DestFile>
-  <DestTime>2019-12-03T07:56:01.46071+01:00</DestTime>
+  <DestTime>2019-12-10T13:36:46.0258699+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

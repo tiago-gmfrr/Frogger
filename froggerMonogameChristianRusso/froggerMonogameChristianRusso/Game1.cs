@@ -19,6 +19,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace froggerMonogameChristianRusso
 {
@@ -72,10 +73,16 @@ namespace froggerMonogameChristianRusso
         private SoundEffect victoryMusic;
         private SoundEffect gameOverMusic;
         private SoundEffect menuTheme;
+        private SoundEffect mortEcraser;
+        private SoundEffect mortNoyer;
+        private SoundEffect babyFrogRecup;
         private SoundEffectInstance gameMusicInstance;
         private SoundEffectInstance victoryMusicInstance;
         private SoundEffectInstance gameOverMusicInstance;
         private SoundEffectInstance menuThemeInstance;
+        private SoundEffectInstance mortEcraserInstance;
+        private SoundEffectInstance mortNoyerInstance;
+        private SoundEffectInstance babyFrogRecupInstance;
         //Initialisation des menus
         Texture2D gameOverScreen;
         Texture2D victoryScreen;
@@ -86,18 +93,14 @@ namespace froggerMonogameChristianRusso
         Texture2D highScore;
         Texture2D blackScreen;
         string menu = "mainMenu";
-        //Initialisation des éléments de gestion de scores
-        StreamWriter ecriture = null;
-        StreamReader lecture = null;
-        XmlSerializer serializer = null;
-        Dictionary<int, Scores> scores = new Dictionary<int, Scores>();
-        Scores[] tableauScore;
+        ScoreManager scoreManager;
+       
         int indexDic = 0;
         string alphabet = "ABCDEFGHIJKLMNOPQRSTUVXYZ";
         int indexAlphabet = 0;
         int indexNom = 0;
         bool scoreAjoute = false;
-        string tableauHighScores = "";
+        
         string stringNom = "AAA";
 
 
@@ -124,6 +127,8 @@ namespace froggerMonogameChristianRusso
 
         public Game1()
         {
+            //ScoreManager
+            scoreManager = ScoreManager.Load();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
@@ -172,25 +177,7 @@ namespace froggerMonogameChristianRusso
         /// </summary>
         protected override void LoadContent()
         {
-            //Si le fichier de scores existe
-            if (File.Exists("scores.xml"))
-            {
-                //Crée un nouveau serialiser et un streamReader
-                serializer = new XmlSerializer(typeof(Scores[]));
-                lecture = new StreamReader("scores.xml");
-
-                //Affecte la variable tableauScore avec ce que lis le streamReader
-                tableauScore = (Scores[])serializer.Deserialize(lecture);
-                //Ferme le streamReader
-                lecture.Close();
-                lecture = null;
-                //Pour chaque item dans tableauScore l'ajoute dans le dictionnaire score, avec un index auto-incrémenté
-                foreach (var item in tableauScore)
-                {
-                    scores.Add(indexDic, item);
-                    indexDic++;
-                }
-            }
+            
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -216,16 +203,23 @@ namespace froggerMonogameChristianRusso
             victoryMusic = Content.Load<SoundEffect>("musicSound/stageWin");
             gameOverMusic = Content.Load<SoundEffect>("musicSound/gameOver");
             menuTheme = Content.Load<SoundEffect>("musicSound/menuTheme");
+            mortEcraser = Content.Load<SoundEffect>("musicSound/frogEcraser");
+            mortNoyer = Content.Load<SoundEffect>("musicSound/frogNoyer");
+            babyFrogRecup = Content.Load<SoundEffect>("musicSound/babyfrogRecup");
             //Création des musicInstance
             gameMusicInstance = gameMusic.CreateInstance();
             victoryMusicInstance = victoryMusic.CreateInstance();
             gameOverMusicInstance = gameOverMusic.CreateInstance();
             menuThemeInstance = menuTheme.CreateInstance();
+            mortEcraserInstance = mortEcraser.CreateInstance();
+            mortNoyerInstance = mortNoyer.CreateInstance();
+            babyFrogRecupInstance = babyFrogRecup.CreateInstance();
             //Joue l'instance du menu principal
             menuThemeInstance.Play();
             //Load le content pour les decomptes
             decompte.LoadContent("decompte", new Vector2((GraphicsDevice.DisplayMode.Width / 2) - 100, (GraphicsDevice.DisplayMode.Height / 2) - 150));
-            compteur.LoadContent("compteur", new Vector2(10, 935));
+            compteur.LoadContent("compteur", new Vector2(10, 950));
+            
             //Fait spawn la première entité de chaque objet
             spawnVoiture();
             spawnPickUp();
@@ -237,7 +231,6 @@ namespace froggerMonogameChristianRusso
             spawnBabyFrog();
             spawnSerpent();
             spawnRocher();
-            ReadScores();
             //Initialize le joueur
             player.Initialize(playerTexture, playerPosition);
         }
@@ -376,124 +369,7 @@ namespace froggerMonogameChristianRusso
             firstSpawn = false;
 
         }
-        //Permet d'enregistrer le score dans le fichier xml
-        public void Serialize()
-        {
-            //tableauScore devient un tableau des valeur contenu dans scores
-            tableauScore = scores.Values.ToArray();
-            //Crée un nouveau serializer et StreamWriter
-            serializer = new XmlSerializer(typeof(Scores[]));
-            ecriture = new StreamWriter("scores.xml");
-            //serialize le score dans le fichier 
-            serializer.Serialize(ecriture, tableauScore);
-            //ferme le streamWriter
-            ecriture.Close();
-            ecriture = null;
-        }
-        //Récupère les scores du fichier xml
-        public void ReadScores()
-        {
-            //Crée un nouveau document XML et le load avec le fichier scores
-            XmlDocument scores = new XmlDocument();
-            scores.Load("scores.xml");
-            //Ajout pour l'affichage
-            tableauHighScores += "Tableau des scores : " + Environment.NewLine;
-            //Initialisation des variable de gestion de score
-            Dictionary<string, double> dictionaryScore = new Dictionary<string, double>();
-            string nom = "";
-            string temps = "";
-            int maxScore = 10;
-            int getScore = 0;
-
-            //Pour chaque noeud présent dans le fichier XML
-            foreach (XmlNode node in scores.DocumentElement.ChildNodes)
-            {
-                //Si le score est dans les 10 premiers 
-                if (getScore < maxScore)
-                {
-                    //Récupère le nom et le temps du noeud
-                    nom = node["nom"].InnerText;
-                    temps = node["temps"].InnerText;
-                    //convertit le score en double et le stocke dans le dictionnaire
-
-                    string[] tempsVirgule = temps.Split('.');
-                    string tempsConvertToVirgule = tempsVirgule[0] + "," + tempsVirgule[1];
-
-                    double doubleScore = Convert.ToDouble(tempsConvertToVirgule);
-
-                    dictionaryScore.Add(nom, doubleScore);
-                }
-                getScore++;
-            }
-            //Pour chaque élément dans le dictionnaire le trie par ordre croissant de value
-            foreach (KeyValuePair<string, double> l in dictionaryScore.OrderBy(key => key.Value))
-            {
-
-                //Sépare le temps en minute et le temps en secondes
-                string[] score = l.Value.ToString().Split(',');
-
-                //Si le temps en seconde fait un caractére ajoute un zéro
-                if (score[1].Length == 1)
-                {
-                    score[1] += "0";
-                }
-                //Ajoute le score dans le tableau des scores
-                tableauHighScores += Environment.NewLine + l.Key + " | " + score[0] + " min " + score[1] + " sec";
-            }
-            getScore = 0;
-        }
-        //Regarde si le nom entré existe déjà dans le fichier XML, retourne un bool
-        public bool playerExist(string playerName)
-        {
-            bool playerExist = false;
-            XmlDocument scores = new XmlDocument();
-            scores.Load("scores.xml");
-
-            foreach (XmlNode node in scores.DocumentElement.ChildNodes)
-            {
-                string nom = node["nom"].InnerText;
-                if (nom == playerName)
-                {
-                    playerExist = true;
-                }
-            }
-            return playerExist;
-        }
-
-        //Récupére le score d'un joueur à partir d'un nom
-        public float getScore(string playerName)
-        {
-            float tempsJoueur = 0f;
-            XmlDocument scores = new XmlDocument();
-            scores.Load("scores.xml");
-
-            foreach (XmlNode node in scores.DocumentElement.ChildNodes)
-            {
-                string temps = node["temps"].InnerText;
-                double doubleScore = Convert.ToDouble(temps);
-                tempsJoueur = (float)doubleScore;
-            }
-            return tempsJoueur;
-        }
-        //Remplace le score d'un joueur à partir d'un nom et d'un score
-        public void replaceScore(double score, string playerName)
-        {
-            XmlDocument scores = new XmlDocument();
-            scores.Load("scores.xml");
-            foreach (XmlNode node in scores.DocumentElement.ChildNodes)
-            {
-                string nom = node["nom"].InnerText;
-
-                if (nom == playerName)
-                {
-
-                    node["temps"].InnerText = score.ToString();
-                }
-
-
-            }
-            scores.Save("scores.xml");
-        }
+        
 
         //Gestion de toutes les collisions
         public void entitiesCollisions(GameTime gameTime)
@@ -536,7 +412,7 @@ namespace froggerMonogameChristianRusso
                 if (player.rectangleSprite.Intersects(e.rectangleSprite))
                 {
                     playerMort();
-
+                    mortEcraserInstance.Play();
                 }
             });
             //Gestion des collisions avec les serpents (à partir de 2 grenouilles récupérées)
@@ -545,7 +421,7 @@ namespace froggerMonogameChristianRusso
                 if (player.rectangleSprite.Intersects(e.rectangleSprite))
                 {
                     playerMort();
-
+                    mortEcraserInstance.Play();
                 }
             });
             //Gestion des collisions avec les pickups (deuxième ligne de voiture)
@@ -554,7 +430,7 @@ namespace froggerMonogameChristianRusso
                 if (player.rectangleSprite.Intersects(e.rectangleSprite))
                 {
                     playerMort();
-
+                    mortEcraserInstance.Play();
                 }
             });
             //Gestion des collisions avec les bus (troisième ligne de voiture)
@@ -563,7 +439,7 @@ namespace froggerMonogameChristianRusso
                 if (player.rectangleSprite.Intersects(e.rectangleSprite))
                 {
                     playerMort();
-
+                    mortEcraserInstance.Play();
                 }
             });
             //Gestion des collisions avec les babyfrogs
@@ -574,6 +450,7 @@ namespace froggerMonogameChristianRusso
                     player.Respawn();
                     e.visible = false;
                     firstSpawn = false;
+                    babyFrogRecupInstance.Play();
                 }
             });
             //Gestion des collisions avec les grosses voitures (dernière ligne de voiture)
@@ -582,6 +459,8 @@ namespace froggerMonogameChristianRusso
                 if (player.rectangleSprite.Intersects(e.rectangleSprite))
                 {
                     playerMort();
+                    mortEcraserInstance.Play();
+
 
                 }
             });
@@ -628,6 +507,7 @@ namespace froggerMonogameChristianRusso
                 if (safePlace == false)
                 {
                     playerMort();
+                    mortNoyerInstance.Play();
 
                 }
 
@@ -814,6 +694,8 @@ namespace froggerMonogameChristianRusso
             //Dessine le menu principal et joue la musique du menu principal
             spriteBatch.Draw(mainMenu, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
             menuThemeInstance.Play();
+            menuThemeInstance.Volume = 0.3f;
+            
             //Si on appuye sur 0 et que l'on se trouve pas dans le menu des scores, quitte
             if (Keyboard.GetState().IsKeyDown(Keys.D0) && menu != "highScore")
             {
@@ -844,11 +726,19 @@ namespace froggerMonogameChristianRusso
                 {
                     menu = "mainMenu";
                 }
+
+                //string scores = string.Join("\n", scoreManager.Highscores.Select(c => c.PlayerName + " | " + c.Value));
+                string[] scores = scoreManager.Highscores.Select(c => c.PlayerName + " | " + c.Value).ToArray();
+                for (int i = 0; i < scores.Length; i++)
+                {
+                    scores[i] = Regex.Replace(scores[i], ",", " Minutes ");
+                    
+                    scores[i] += " Secondes";
+                }
+                
                 //Dessine le background, le rectangle des scores, les scores et l'indication pour revenir au menu
                 spriteBatch.Draw(highScore, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
-                spriteBatch.Draw(blackScreen, new Rectangle(GraphicsDevice.Viewport.Width / 2 - 300, GraphicsDevice.Viewport.Height / 2 - 500, 630, 700), Color.White);
-                spriteBatch.DrawString(Content.Load<SpriteFont>("compteur"), tableauHighScores, new Vector2(GraphicsDevice.Viewport.Width / 2 - 150, GraphicsDevice.Viewport.Height / 2 - 500), Color.White);
-                spriteBatch.DrawString(Content.Load<SpriteFont>("compteur"), "Appuyer sur 6 pour revenir au menu", new Vector2((GraphicsDevice.DisplayMode.Width / 2 - 300), (GraphicsDevice.DisplayMode.Height / 2) + 150), Color.White);
+                spriteBatch.DrawString(Content.Load<SpriteFont>("compteur"), "Tableau des HighScores : \n\n" + string.Join("\n",scores), new Vector2(GraphicsDevice.Viewport.Width / 2 - 250, GraphicsDevice.Viewport.Height / 2 - 500), Color.White);
 
             }
             if (menu == "newHighScore")
@@ -918,29 +808,19 @@ namespace froggerMonogameChristianRusso
                     {
                         if (scoreAjoute == false)
                         {
-                            //Si le joueur existe déjà
-                            if (playerExist(stringNom) == true)
-                            {
-                                //Et que le score qu'il vien de réaliser est plus petit que le score enregistré
-                                if (getScore(stringNom) > Convert.ToDouble(compteur.Score))
+                                scoreManager.Add(new Score()
                                 {
-                                    //Remplace le score enregistrer
-                                    replaceScore(Convert.ToDouble(compteur.Score), stringNom);
-                                }
-                                //Remet le tableau des scores vide et lis les scores
-                                tableauHighScores = null;
-                                ReadScores();
-                            }
-                            //sinon ajoute le score avec un nouvel index et serialize
-                            else
-                            {
-                                scores.Add(indexDic, new Scores(stringNom, compteur.Score));
+                                    PlayerName = stringNom,
+                                    Value = compteur.Score,
+                                });
+
+                                ScoreManager.Save(scoreManager);
                                 indexDic++;
                                 scoreAjoute = true;
-                                Serialize();
-                                tableauHighScores = null;
-                                ReadScores();
-                            }
+                               
+                                
+                               
+                           // }
 
                         }
                         menu = "highScore";
@@ -963,6 +843,7 @@ namespace froggerMonogameChristianRusso
                 //Arrete la musique du menu et joue la musique du jeu
                 menuThemeInstance.Stop();
                 gameMusicInstance.Play();
+                gameMusicInstance.Volume = 0.3f;
                 //Dessine le background
                 spriteBatch.Draw(mainBackGround, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                 //Dessine tous les objets présents dans une liste pour chaque objets
@@ -1024,6 +905,7 @@ namespace froggerMonogameChristianRusso
                     //Arrête la musique du jeu et lance la musique de victoire
                     gameMusicInstance.Stop();
                     victoryMusicInstance.Play();
+                    victoryMusicInstance.Volume = 0.3f;
                     //Si on appuye sur 6, on va dans le menu pour enregistrer son score
                     if (Keyboard.GetState().IsKeyDown(Keys.D6))
                     {
@@ -1055,6 +937,7 @@ namespace froggerMonogameChristianRusso
                     //Arrête la musique du jeu et lance la musique de gameOver
                     gameMusicInstance.Stop();
                     gameOverMusicInstance.Play();
+                    gameOverMusicInstance.Volume = 0.3f;
 
                     //Si on appuye sur 8 on relance une partie
                     if (Keyboard.GetState().IsKeyDown(Keys.D8))
@@ -1064,7 +947,6 @@ namespace froggerMonogameChristianRusso
                     //Et si on appuye sur 0 on quitte
                     if (Keyboard.GetState().IsKeyDown(Keys.D0))
                     {
-                        Serialize();
                         Exit();
                     }
 

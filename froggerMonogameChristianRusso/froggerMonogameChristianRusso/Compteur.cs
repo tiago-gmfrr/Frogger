@@ -37,15 +37,15 @@ namespace froggerMonogameChristianRusso
         public void Update(GameTime gameTime)
         {
             AfficheTemps = "Votre temps " + Minute + ":";
-            score = Minute.ToString() + ".";
+            score = Minute.ToString() + ",";
             if (actif == true)
             {
                 Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
                        
-            if (Timer < 60)
+            if (Timer < 59)
             {
-                if (Timer < 9)
+                if (Timer <= 9)
                 {
                     score += "0";
                     AfficheTemps += "0";

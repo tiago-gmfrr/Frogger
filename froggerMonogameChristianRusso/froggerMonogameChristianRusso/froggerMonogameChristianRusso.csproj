@@ -73,6 +73,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Score.cs" />
+    <Compile Include="ScoreManager.cs" />
     <Compile Include="Scores.cs" />
     <Compile Include="Serpent.cs" />
     <Compile Include="spriteGeneric.cs" />
